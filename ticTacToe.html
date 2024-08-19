@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <title>Tic-Tac-Toe Game!</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1 id="title">Tic-tac-toe Game!</h1>
+    </header>
+    <main>
+        <div class="table-container">
+            <table id="table-board">
+                <tr class="table-row">
+                    <td class="table-cell" id="cell-00">
+                        <button class="table-btn" id="btn-00"></button>
+                    </td>
+                    <td class="table-cell" id="cell-01">
+                        <button class="table-btn" id="btn-01"></button>
+                    </td>
+                    <td class="table-cell" id="cell-02">
+                        <button class="table-btn" id="btn-02"></button>
+                    </td>
+                </tr>
+                <tr class="table-row">
+                    <td class="table-cell" id="cell-10">
+                        <button class="table-btn" id="btn-10"></button>
+                    </td>
+                    <td class="table-cell" id="cell-11">
+                        <button class="table-btn" id="btn-11"></button>
+                    </td>
+                    <td class="table-cell" id="cell-12">
+                        <button class="table-btn" id="btn-12"></button>
+                    </td>
+                </tr>
+                <tr class="table-row">
+                    <td class="table-cell" id="cell-20">
+                        <button class="table-btn" id="btn-20"></button>
+                    </td>
+                    <td class="table-cell" id="cell-21">
+                        <button class="table-btn" id="btn-21"></button>
+                    </td>
+                    <td class="table-cell" id="cell-22">
+                        <button class="table-btn" id="btn-22"></button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div>
+            <p id="info"></p>
+            <button id="btn-reset">Resetar</button>
+        </div>
+    </main>
+    <footer>
+
+    </footer>
+    <!-- Bootstrap Modal -->
+    <div class="modal fade" id="nicknamesModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="staticBackdropLabel"><strong>Quem são vocês?</strong></h1>
+              <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+            </div>
+
+            <div class="modal-body">
+              <label for="player1Nick">Primeiro jogador:</label>
+              <input type="text" id="player1Nick" name="player1" placeholder="Apelido do primeiro jogador" required>
+              <br><br>
+              <label for="player2Nick">Segundo jogador:</label>
+              <input type="text" id="player2Nick" name="player2" placeholder="Apelido do primeiro jogador" required>
+            </div>
+
+            <div class="modal-footer">
+              <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+              <button type="button" class="btn btn-primary" id="btn-continue">Continuar</button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    <!--JavaScript-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="ticTacToe.js"></script>
+</body>
+</html>

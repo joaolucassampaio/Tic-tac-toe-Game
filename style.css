@@ -1,0 +1,63 @@
+/* Uso do seletor universal como boa prática para resetar margens e preenchimentos */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* Variáveis gerais */
+    --bg-color: #212529;
+    --border-color: #666;
+    --font-color: #f1f5f9;
+    --primary-color: #4dff91;
+    --error-color: #ff0043;
+    --font-family: "Roboto Mono", monospace;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--font-color);
+    font-family: var(--font-family);
+    height: 100vh;
+}
+
+#title {
+    text-align: center;
+    font-size: 50px;
+}
+
+#table-board {
+    text-align: center;
+    margin: 0 auto;
+}
+
+.table-cell {
+    width: 150px;
+    height: 150px;
+}
+
+.table-btn {
+    width: 150px;
+    height: 150px;
+}
+
+#nicknamesModal{
+    top: 20%
+}
+
+.modal-content {
+    background-color: var(--bg-color);
+    color: var(--font-color);
+}
+
+#info {
+    text-align: center;
+}
+
+#btn-reset {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+}
