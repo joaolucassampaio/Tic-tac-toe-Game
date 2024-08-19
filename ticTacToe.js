@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const firstPlayer = role.x
         const secondPlayer = role.o
 
-
+        let isPlayer1turn = true
 
         //Combinações de vitória
         const winningCombinations = [
@@ -28,6 +28,16 @@ document.addEventListener('DOMContentLoaded', function() {
             ["btn-00", "btn-11", "btn-22"], // Diagonal principal
             ["btn-02", "btn-11", "btn-20"]  // Diagonal secundária
         ];
+
+        document.getElementById('btn-00').addEventListener('click', )
+        document.getElementById('btn-01').addEventListener('click', )
+        document.getElementById('btn-02').addEventListener('click', )
+        document.getElementById('btn-10').addEventListener('click', )
+        document.getElementById('btn-11').addEventListener('click', )
+        document.getElementById('btn-12').addEventListener('click', )
+        document.getElementById('btn-20').addEventListener('click', )
+        document.getElementById('btn-21').addEventListener('click', )
+        document.getElementById('btn-22').addEventListener('click', )
     });
 });
 
