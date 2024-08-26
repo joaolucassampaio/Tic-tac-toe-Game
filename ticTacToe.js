@@ -66,24 +66,29 @@ function checkWinningCombination(allBtns, currentPlayer, firstPlayer, secondPlay
             currentPlayer = switchPlayerTurn(firstPlayer, secondPlayer, currentPlayer)
             alert(`O jogador ${currentPlayer.nick} ganhou!`)
             winnerFound = true
-            gameReset()
+
+            // Colore os botões para indicar vitória
+            allBtns[a].style.backgroundColor = '#4dff91'
+            allBtns[b].style.backgroundColor = '#4dff91'
+            allBtns[c].style.backgroundColor = '#4dff91'
+
+            // Desabilita os botões
+            for(let i = 0; i < allBtns.length; i++) {
+                allBtns[i].disabled = true
+            }
         }
     })
 
     // Verifica se há um empate
     if (!winnerFound && !gameState.includes('')) {
         alert('Empate!')
-        gameReset()
-    }
-}
 
-// Reseta o jogo
-function gameReset() {
-    const allBtns = document.querySelectorAll('.table-btn')
-        // Limpa os innerText de todos os botões
-        allBtns.forEach(function (btn) {
-            btn.innerText = ''
-        })
+        // Colore os botões para indicar empate
+        for(let i=0; i<allBtns.length;i++) {
+            allBtns[i].style.backgroundColor = '#ff0043'
+            allBtns[i].disabled = true
+        }
+    }
 }
 
 // Espera o conteúdo HTML ser carregado
@@ -126,6 +131,27 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         document.getElementById('btn-reset').addEventListener('click', gameReset)
-        
+        // Reseta o jogo
+        function gameReset() {
+            const allBtns = document.querySelectorAll('.table-btn')
+                // Limpa os innerText de todos os botões
+                allBtns.forEach(function (btn) {
+                    btn.innerText = ''
+                })
+
+                // Reseta a cor dos botões
+                allBtns.forEach(function (btn) {
+                    btn.style.backgroundColor = ''
+                })
+
+                // Define qual jogador começará novamente
+                currentPlayer = firstPlayer
+                currentPlayerInfo.innerText = `É o turno do jogador ${currentPlayer.nick}`
+
+                // Habilita os botões novamente
+                for(let i = 0; i < allBtns.length; i++) {
+                    allBtns[i].disabled = false
+                }
+        }
     })
 })
