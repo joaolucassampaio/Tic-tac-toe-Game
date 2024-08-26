@@ -62,7 +62,7 @@ function checkWinningCombination(allBtns, currentPlayer, firstPlayer, secondPlay
     let winnerFound = false
     winningCombinations.forEach(function(comb) {
         const [a, b, c] = comb //Ex: [0, 1, 2]
-        if(gameState[a] && gameState[a] === gameState[b] && gameState[a] === gameState[c]) {
+        if(gameState[a] != '' && gameState[a] === gameState[b] && gameState[a] === gameState[c]) {
             currentPlayer = switchPlayerTurn(firstPlayer, secondPlayer, currentPlayer)
             alert(`O jogador ${currentPlayer.nick} ganhou!`)
             winnerFound = true
