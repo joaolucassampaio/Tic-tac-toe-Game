@@ -40,6 +40,10 @@ body {
 .table-btn {
     width: 150px;
     height: 150px;
+    text-align: center;
+    font-family: var(--font-family);
+    font-size: 100px;
+    color: var(--bg-color);
 }
 
 #nicknamesModal{

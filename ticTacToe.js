@@ -1,64 +1,131 @@
-//Espera o DOM carregar para inicialização
-document.addEventListener('DOMContentLoaded', function() {
-    // Criar um novo Modal do Bootstrap
-    const modal = new bootstrap.Modal(document.getElementById('nicknamesModal'));
-    modal.show();
+// FUNÇÕES DE ESTRUTURAÇÃO DA LÓGICA DO JOGO DA VELHA:
 
-    //Espera o botão de continuar ser clicado
-    document.getElementById('btn-continue').addEventListener('click', function(ev) {
-        const player1Nick = document.getElementById('player1Nick').value;
-        const player2Nick = document.getElementById('player2Nick').value;
-        modal.hide()
-
-        const role = selectPlayerRole(player1Nick, player2Nick);
-
-        const firstPlayer = role.x
-        const secondPlayer = role.o
-
-        let isPlayer1turn = true
-
-        //Combinações de vitória
-        const winningCombinations = [
-            ["btn-00", "btn-01", "btn-02"], // Linha superior
-            ["btn-10", "btn-11", "btn-12"], // Linha do meio
-            ["btn-20", "btn-21", "btn-22"], // Linha inferior
-            ["btn-00", "btn-10", "btn-20"], // Coluna esquerda
-            ["btn-01", "btn-11", "btn-21"], // Coluna do meio
-            ["btn-02", "btn-12", "btn-22"], // Coluna direita
-            ["btn-00", "btn-11", "btn-22"], // Diagonal principal
-            ["btn-02", "btn-11", "btn-20"]  // Diagonal secundária
-        ];
-
-        document.getElementById('btn-00').addEventListener('click', )
-        document.getElementById('btn-01').addEventListener('click', )
-        document.getElementById('btn-02').addEventListener('click', )
-        document.getElementById('btn-10').addEventListener('click', )
-        document.getElementById('btn-11').addEventListener('click', )
-        document.getElementById('btn-12').addEventListener('click', )
-        document.getElementById('btn-20').addEventListener('click', )
-        document.getElementById('btn-21').addEventListener('click', )
-        document.getElementById('btn-22').addEventListener('click', )
-    });
-});
-
-// Função para escolher o jogador que será o 'x' ou 'o'
-function selectPlayerRole(player1, player2) {
-    // Gera um número aleatório entre 0 e 1
-    const randomNumber = Math.random();
-    
-    if (randomNumber < 0.5) {
+// Define qual jogador será "X" e "O"
+function getPlayerRole(player1Nick, player2Nick) {
+    const randomNumber = Math.floor(Math.random() * 10 + 1)
+    if(randomNumber < 5) {
         return {
-            x: player1,
-            o: player2
-        };
-    } else {
+            firstPlayerInfo: {
+                nick: player1Nick,
+                role: "X"
+            },
+            secondPlayerInfo: {
+                nick: player2Nick,
+                role: "O"
+            }
+            }
+    }else {
         return {
-            x: player2,
-            o: player1
-        };
+            firstPlayerInfo: {
+                nick: player2Nick,
+                role: "X"
+            },
+            secondPlayerInfo: {
+                nick: player1Nick,
+                role: "O"
+            }
+        }
     }
 }
 
-function switchPlayer(firstPlayer, secondPlayer) {
-    document.getElementById('info').innerText = ``
+// Troca a vez dos jogadores
+function switchPlayerTurn(firstPlayer, secondPlayer, currentPlayer) {
+    if(currentPlayer === firstPlayer) {
+        currentPlayer = secondPlayer
+        return currentPlayer
+    }else {
+        currentPlayer = firstPlayer
+        return currentPlayer
+    }
 }
+
+// Verifica se há um vencedor
+function checkWinningCombination(allBtns, currentPlayer, firstPlayer, secondPlayer) {
+    let gameState = []
+    for(let i = 0; i < allBtns.length; i++) {
+        let currentBtn = allBtns[i]
+        let currentInnerText = currentBtn.innerText
+        gameState.push(currentInnerText)
+    }
+
+    const winningCombinations = [
+        [0, 1, 2], // Linha 1
+        [3, 4, 5], // Linha 2
+        [6, 7, 8], // Linha 3
+        [0, 3, 6], // Coluna 1
+        [1, 4, 7], // Coluna 2
+        [2, 5, 8], // Coluna 3
+        [0, 4, 8], // Diagonal principal
+        [2, 4, 6]  // Diagonal secundária
+    ]
+
+    let winnerFound = false
+    winningCombinations.forEach(function(comb) {
+        const [a, b, c] = comb //Ex: [0, 1, 2]
+        if(gameState[a] && gameState[a] === gameState[b] && gameState[a] === gameState[c]) {
+            currentPlayer = switchPlayerTurn(firstPlayer, secondPlayer, currentPlayer)
+            alert(`O jogador ${currentPlayer.nick} ganhou!`)
+            winnerFound = true
+            gameReset()
+        }
+    })
+
+    // Verifica se há um empate
+    if (!winnerFound && !gameState.includes('')) {
+        alert('Empate!')
+        gameReset()
+    }
+}
+
+// Reseta o jogo
+function gameReset() {
+    const allBtns = document.querySelectorAll('.table-btn')
+        // Limpa os innerText de todos os botões
+        allBtns.forEach(function (btn) {
+            btn.innerText = ''
+        })
+}
+
+// Espera o conteúdo HTML ser carregado
+document.addEventListener('DOMContentLoaded', function() {
+    const modal = new bootstrap.Modal(document.getElementById('nicknamesModal'))
+    modal.show()
+
+    // Espera o botão de continuar ser clicado para começar o jogo
+    document.getElementById('btn-continue').addEventListener('click', function(ev) {
+        const player1Nick = document.getElementById('player1Nick').value
+        const player2Nick = document.getElementById('player2Nick').value
+        modal.hide()
+
+        const roleDatabase = getPlayerRole(player1Nick, player2Nick)
+        // Define qual jogador começará
+        const firstPlayer = roleDatabase.firstPlayerInfo
+        const secondPlayer = roleDatabase.secondPlayerInfo
+
+        let currentPlayer = firstPlayer
+
+        let currentPlayerInfo = document.getElementById('info')
+            currentPlayerInfo.innerText = `É o turno do jogador ${currentPlayer.nick}`
+
+        const allBtns = document.querySelectorAll('.table-btn')
+        allBtns.forEach(function (btn) {
+            btn.addEventListener('click', gameSetup);
+        })
+        function gameSetup(ev) {
+            const currentBtn = ev.currentTarget
+            let currentInnerText = currentBtn.innerText
+
+            if(currentInnerText.trim() === '') {
+                currentBtn.innerText = currentPlayer.role
+                currentPlayer = switchPlayerTurn(firstPlayer, secondPlayer, currentPlayer)
+                currentPlayerInfo.innerText = `É o turno do jogador ${currentPlayer.nick}`
+            }
+
+            // Checa se há um vencedor sempre que um botão é clicado
+            checkWinningCombination(allBtns, currentPlayer, firstPlayer, secondPlayer)
+        }
+
+        document.getElementById('btn-reset').addEventListener('click', gameReset)
+        
+    })
+})
